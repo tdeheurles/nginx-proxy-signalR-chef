@@ -8,15 +8,13 @@ service 'nginx' do
   action [ :enable, :start ]
 end
 
-directory '/usr/share/nginx/html' do
-  owner 'ubuntu'
-  group 'ubuntu'
-  mode '0755'
-  action :create
+execute "chown" do
+  command "chown ubuntu /var/log/nginx"
+  command "chown ubuntu /var/log/nginx/error.log"
+  command "chown ubuntu /var/log/nginx/access.log"
 end
 
-cookbook_file "/usr/share/nginx/html/index.html" do
-  source "index.html"
+cookbook_file "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
   mode "0644"
 end
-
