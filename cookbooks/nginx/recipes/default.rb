@@ -1,4 +1,6 @@
-include_recipe "apt"
+execute "apt-get update" do
+  command "apt-get update"
+end
 
 package 'nginx' do
   action :install
