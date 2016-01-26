@@ -17,14 +17,15 @@ cookbook_file "/etc/nginx/nginx.conf" do
   owner  "ubuntu"
   mode   "0644"
 end
-cookbook_file "/tmp/generate_certs.sh" do
-  source "generate_certs.sh"
+cookbook_file "/etc/ssl/nginx/server.key" do
+  source "server.key"
   owner  "ubuntu"
-  mode   "0755"
+  mode   "0400"
 end
-
-execute "certs" do
-  command "cd /tmp && ./generate_certs.sh nginxtest"
+cookbook_file "/etc/ssl/nginx/server.pem" do
+  source "server.pem"
+  owner  "ubuntu"
+  mode   "0400"
 end
 
 service 'nginx' do
